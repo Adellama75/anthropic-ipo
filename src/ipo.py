@@ -49,3 +49,24 @@ def summary(paths):
 def rebase_to_first_close(paths):
     """Same paths, but as % of the first-day close: what you'd see buying at the end of day 1."""
     return paths / paths.iloc[0] * 100
+
+
+def market_context(comps, index="^IXIC"):
+    """Where the market was when each IPO priced: Nasdaq trailing 3m / 12m return, and
+    its return over the IPO's first year (to separate 'stock did well' from 'market did well')."""
+    idx = yf.Ticker(index).history(start="2003-01-01", auto_adjust=True)["Close"]
+    idx.index = idx.index.tz_localize(None)
+    rows = []
+    for row in comps.itertuples():
+        at = idx[:row.ipo_date].iloc[-1]
+        after = idx[row.ipo_date:]
+        rows.append({
+            "ticker": row.ticker,
+            "nasdaq_3m_before": (at / idx[:row.ipo_date - pd.DateOffset(months=3)].iloc[-1] - 1) * 100,
+            "nasdaq_12m_before": (at / idx[:row.ipo_date - pd.DateOffset(years=1)].iloc[-1] - 1) * 100,
+            "nasdaq_1y_after": (after.iloc[252] / at - 1) * 100 if len(after) > 252 else None,
+        })
+    today = idx.iloc[-1]
+    now = {"ticker": "today", "nasdaq_3m_before": (today / idx[:idx.index[-1] - pd.DateOffset(months=3)].iloc[-1] - 1) * 100,
+           "nasdaq_12m_before": (today / idx[:idx.index[-1] - pd.DateOffset(years=1)].iloc[-1] - 1) * 100}
+    return pd.DataFrame(rows).set_index("ticker").round(1), pd.Series(now).drop("ticker").astype(float).round(1)
