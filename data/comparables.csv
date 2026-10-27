@@ -1,0 +1,22 @@
+ticker,name,ipo_date,offer_price,sector
+GOOGL,Google,2004-08-19,85,internet
+V,Visa,2008-03-19,44,fintech
+GM,General Motors,2010-11-18,33,auto
+META,Facebook,2012-05-18,38,internet
+BABA,Alibaba,2014-09-19,68,internet
+SNAP,Snap,2017-03-02,17,internet
+LYFT,Lyft,2019-03-29,72,internet
+PINS,Pinterest,2019-04-18,19,internet
+ZM,Zoom,2019-04-18,36,software
+UBER,Uber,2019-05-10,45,internet
+CRWD,CrowdStrike,2019-06-12,34,software
+SNOW,Snowflake,2020-09-16,120,software
+DASH,DoorDash,2020-12-09,102,internet
+ABNB,Airbnb,2020-12-10,68,internet
+RIVN,Rivian,2021-11-10,78,auto
+ARM,Arm,2023-09-14,51,semis
+RDDT,Reddit,2024-03-21,34,internet
+CRWV,CoreWeave,2025-03-28,40,ai-infra
+CRCL,Circle,2025-06-05,31,fintech
+FIG,Figma,2025-07-31,33,software
+SPCX,SpaceX,2026-06-12,135,space
